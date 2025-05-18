@@ -50,7 +50,6 @@ jobs:
 
     env:
       VersionSuffix: ${{ github.event.pull_request.number && format('pr-{0}-{1}-{2}-preview', github.event.pull_request.number, github.run_number, github.run_attempt) || '' }}
-      SOLUTION_FILE_NAME: "./lib.sln"
 
     steps:
       # Setup
@@ -66,19 +65,16 @@ jobs:
       - name: Restore NuGet Packages
         run: >-
           dotnet restore
-          ${{ env.SOLUTION_FILE_NAME }}
 
       - name: Build Solution
         run: >-
           dotnet build
-          ${{ env.SOLUTION_FILE_NAME }}
           --no-restore
           -c Release
 
       - name: Run Tests
         run: >-
           dotnet test
-          ${{ env.SOLUTION_FILE_NAME }}
           --no-build
           --no-restore
           -c Release
@@ -86,7 +82,6 @@ jobs:
       - name: Pack NuGet Packages
         run: >-
           dotnet pack
-          ${{ env.SOLUTION_FILE_NAME }}
           --no-build
           --no-restore
           --output ./dist
