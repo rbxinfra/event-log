@@ -124,8 +124,8 @@ jobs:
           dotnet nuget push
           dist/*.nupkg
           --skip-duplicate
-          --source ${{ vars.NUGET_SOURCE }}
-          --api-key ${{ secrets.NUGET_API_KEY }}
+          --source ${{ vars.NUGET_SOURCE_PUBLIC }}
+          --api-key ${{ secrets.NUGET_API_KEY_PUBLIC }}
 
       - name: Clean up
         run: >-
